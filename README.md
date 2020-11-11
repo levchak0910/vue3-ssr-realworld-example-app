@@ -21,7 +21,7 @@ yarn build
 yarn serve
 ```
 
-## Aknowleges
+## Acknowledges
 
 - [@mutoe](https://github.com/mutoe) and [contributors](https://github.com/mutoe/vue3-realworld-example-app#contributors) - for original repo
 - [@andrewcourtice](https://github.com/andrewcourtice) - for [state manager](https://github.com/andrewcourtice/harlem) with [ssr support](https://github.com/andrewcourtice/harlem/blob/main/plugins/ssr)
