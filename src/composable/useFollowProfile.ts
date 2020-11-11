@@ -1,5 +1,5 @@
 import type { ComputedRef } from 'vue'
-import { routerPush } from '../router'
+import { useRouter } from 'vue-router'
 
 import type { AuthorizationError } from '../types/error'
 
@@ -16,6 +16,8 @@ interface UseFollowProps {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export function useFollow ({ username, following, onUpdate }: UseFollowProps) {
+  const router = useRouter()
+
   async function toggleFollow (): Promise<void> {
     let response: Either<AuthorizationError, Profile>
 
@@ -26,7 +28,7 @@ export function useFollow ({ username, following, onUpdate }: UseFollowProps) {
     }
 
     if (response.isOk()) onUpdate(response.value)
-    else await routerPush('login')
+    else await router.push({ name: 'login' })
   }
 
   const { active, run } = createAsyncProcess(toggleFollow)

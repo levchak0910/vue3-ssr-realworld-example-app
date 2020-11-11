@@ -75,7 +75,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, reactive } from 'vue'
-import { routerPush } from '../router'
+import { useRouter } from 'vue-router'
 
 import { putProfile, PutProfileForm } from '../services/profile/putProfile'
 
@@ -84,6 +84,8 @@ import { user, checkAuthorization, updateUser } from '../store/user'
 export default defineComponent({
   name: 'SettingsPage',
   setup () {
+    const router = useRouter()
+
     const form = reactive<PutProfileForm>({})
 
     const onSubmit = async () => {
@@ -94,11 +96,11 @@ export default defineComponent({
 
     const onLogout = async () => {
       updateUser(null)
-      await routerPush('global-feed')
+      await router.push({ name: 'global-feed' })
     }
 
     onMounted(async () => {
-      if (!checkAuthorization(user)) return await routerPush('login')
+      if (!checkAuthorization(user)) return await router.push({ name: 'login' })
 
       form.image = user.value.image
       form.username = user.value.username

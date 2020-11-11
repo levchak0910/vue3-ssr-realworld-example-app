@@ -66,7 +66,13 @@ export default class FetchRequest {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fetchOptions: any = { method, headers }
     if (data !== undefined) fetchOptions.body = JSON.stringify(data)
-    return fetch(finalUrl, fetchOptions)
+    try {
+      return fetch(finalUrl, fetchOptions)
+    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const nodeFetch = require('node-fetch')
+      return nodeFetch(finalUrl, fetchOptions)
+    }
   }
 
   private runSafeFetch (

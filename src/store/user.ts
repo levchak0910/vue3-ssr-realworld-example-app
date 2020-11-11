@@ -2,14 +2,14 @@ import type { ComputedRef } from 'vue'
 import { createStore } from '@harlem/core'
 
 import { request } from '../services'
-import storage from '../utils/storage'
+import cookie from '../utils/cookie'
 
 interface State {
   user: User | null
 }
 
 const STATE: State = {
-  user: storage.get<User>('user'),
+  user: null,
 }
 
 const { getter, mutation } = createStore<State>('user', STATE)
@@ -24,11 +24,11 @@ export const checkAuthorization = (user: ComputedRef<User | null>): user is Comp
 
 export const updateUser = mutation<User | null>('updateUser', (state, userData) => {
   if (userData === undefined || userData === null) {
-    storage.remove('user')
+    cookie.remove('user')
     request.deleteAuthorizationHeader()
     state.user = null
   } else {
-    storage.set('user', userData)
+    cookie.set('user', userData)
     request.setAuthorizationHeader(userData.token)
     state.user = userData
   }

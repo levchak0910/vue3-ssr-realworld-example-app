@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { routerPush } from '../router'
+import { useRouter } from 'vue-router'
 
 import { postLogin, PostLoginForm, PostLoginErrors } from '../services/auth/postLogin'
 
@@ -71,6 +71,8 @@ import { updateUser } from '../store/user'
 export default defineComponent({
   name: 'LoginPage',
   setup () {
+    const router = useRouter()
+
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostLoginForm>({
       email: '',
@@ -85,7 +87,7 @@ export default defineComponent({
       const result = await postLogin(form)
       if (result.isOk()) {
         updateUser(result.value)
-        await routerPush('global-feed')
+        await router.push({ name: 'global-feed' })
       } else {
         errors.value = await result.value.getErrors()
       }

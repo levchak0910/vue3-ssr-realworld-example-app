@@ -1,29 +1,42 @@
 <template>
-  <router-link
-    :to="to"
-    v-bind="attrs"
+  <a
+    :href="href"
+    :class="linkActiveClass"
+    @click.prevent="go"
   >
     <slot />
-  </router-link>
+  </a>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import type { RouteParams } from 'vue-router'
+import { computed, defineComponent, PropType } from 'vue'
+import { RouteParams, useLink, useRouter } from 'vue-router'
 import type { AppRouteNames } from '../router'
 
 export default defineComponent({
   name: 'AppLink',
   props: {
     name: { type: String as PropType<AppRouteNames>, required: true },
-    params: { type: Object as PropType<RouteParams>, default: () => ({}) },
+    params: { type: Object as PropType<RouteParams | undefined>, default: undefined },
+    activeClass: { type: String, default: '' },
   },
-  setup (props, { attrs }) {
+  setup (props) {
+    const { href, isExactActive } = useLink({ to: props })
+    const router = useRouter()
+
+    const go = () => {
+      if (props.params !== undefined) router.push({ name: props.name, params: props.params })
+      else router.push({ name: props.name })
+    }
+
+    const linkActiveClass = computed(() => ({ [props.activeClass]: isExactActive.value }))
+
     return {
-      to: props,
-      attrs,
+      href,
+      go,
+      isExactActive,
+      linkActiveClass,
     }
   },
 })
-
 </script>

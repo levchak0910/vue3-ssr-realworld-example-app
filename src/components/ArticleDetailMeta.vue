@@ -61,6 +61,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { deleteArticle } from '../services/article/deleteArticle'
 
@@ -68,7 +69,6 @@ import { useFavoriteArticle } from '../composable/useFavoriteArticle'
 import { useFollow } from '../composable/useFollowProfile'
 
 import { user, checkAuthorization } from '../store/user'
-import { routerPush } from '../router'
 
 export default defineComponent({
   name: 'ArticleDetailMeta',
@@ -79,6 +79,8 @@ export default defineComponent({
     update: (article: Article) => !!article.slug,
   },
   setup (props, { emit }) {
+    const router = useRouter()
+
     const { article } = toRefs(props)
     const displayEditButton = computed(() => checkAuthorization(user) && user.value.username === article.value.author.username)
     const displayFollowButton = computed(() => user.value?.username !== article.value.author.username)
@@ -91,7 +93,7 @@ export default defineComponent({
 
     const onDelete = async () => {
       await deleteArticle(article.value.slug)
-      await routerPush('global-feed')
+      await router.push({ name: 'global-feed' })
     }
 
     const { followProcessGoing, toggleFollow } = useFollow({

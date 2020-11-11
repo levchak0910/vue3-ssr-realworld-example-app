@@ -1,5 +1,5 @@
 import { ComputedRef } from 'vue'
-import { routerPush } from '../router'
+import { useRouter } from 'vue-router'
 
 import type { AuthorizationError } from '../types/error'
 
@@ -16,6 +16,8 @@ interface useFavoriteArticleProps {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export const useFavoriteArticle = ({ isFavorited, articleSlug, onUpdate }: useFavoriteArticleProps) => {
+  const router = useRouter()
+
   const favoriteArticle = async (): Promise<void> => {
     let response: Either<AuthorizationError, Article>
     if (isFavorited.value) {
@@ -25,7 +27,7 @@ export const useFavoriteArticle = ({ isFavorited, articleSlug, onUpdate }: useFa
     }
 
     if (response.isOk()) onUpdate(response.value)
-    else await routerPush('login')
+    else await router.push({ name: 'login' })
   }
 
   const { active, run } = createAsyncProcess(favoriteArticle)

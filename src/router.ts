@@ -1,5 +1,4 @@
-import { createRouter, createWebHashHistory, RouteParams } from 'vue-router'
-import Home from './pages/Home.vue'
+import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
 
 export type AppRouteNames = 'global-feed'
 | 'my-feed'
@@ -13,23 +12,25 @@ export type AppRouteNames = 'global-feed'
 | 'profile-favorites'
 | 'settings'
 
-export const router = createRouter({
-  history: createWebHashHistory(),
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/explicit-module-boundary-types
+export const generateRouter = (type: 'client' | 'ssr') => createRouter({
+  history: type === 'client' ? createWebHistory() : createMemoryHistory(),
+
   routes: [
     {
       name: 'global-feed',
       path: '/',
-      component: Home,
+      component: () => import('./pages/Home.vue'),
     },
     {
       name: 'my-feed',
       path: '/my-feeds',
-      component: Home,
+      component: () => import('./pages/Home.vue'),
     },
     {
       name: 'tag',
       path: '/tag/:tag',
-      component: Home,
+      component: () => import('./pages/Home.vue'),
     },
     {
       name: 'article',
@@ -73,8 +74,3 @@ export const router = createRouter({
     },
   ],
 })
-
-export function routerPush (name: AppRouteNames, params?: RouteParams): ReturnType<typeof router.push> {
-  if (params !== undefined) return router.push({ name, params })
-  else return router.push({ name })
-}

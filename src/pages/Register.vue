@@ -69,7 +69,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import { routerPush } from '../router'
+import { useRouter } from 'vue-router'
 
 import { postRegister, PostRegisterForm, PostRegisterErrors } from '../services/auth/postRegister'
 
@@ -78,6 +78,8 @@ import { updateUser } from '../store/user'
 export default defineComponent({
   name: 'RegisterPage',
   setup () {
+    const router = useRouter()
+
     const formRef = ref<HTMLFormElement | null>(null)
     const form = reactive<PostRegisterForm>({
       username: '',
@@ -93,7 +95,7 @@ export default defineComponent({
       const result = await postRegister(form)
       if (result.isOk()) {
         updateUser(result.value)
-        await routerPush('global-feed')
+        await router.push({ name: 'global-feed' })
       } else {
         errors.value = await result.value.getErrors()
       }
