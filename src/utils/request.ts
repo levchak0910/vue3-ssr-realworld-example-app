@@ -4,6 +4,7 @@ import { NetworkError } from '../types/error'
 
 import { Either, fail, success } from './either'
 import params2query from './params-to-query'
+import fetch from './fetch-adapter'
 
 export interface FetchRequestOptions {
   prefix: string
@@ -66,13 +67,7 @@ export default class FetchRequest {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fetchOptions: any = { method, headers }
     if (data !== undefined) fetchOptions.body = JSON.stringify(data)
-    try {
-      return fetch(finalUrl, fetchOptions)
-    } catch (e) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const nodeFetch = require('node-fetch')
-      return nodeFetch(finalUrl, fetchOptions)
-    }
+    return fetch(finalUrl, fetchOptions)
   }
 
   private runSafeFetch (
