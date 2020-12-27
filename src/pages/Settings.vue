@@ -92,6 +92,11 @@ export default defineComponent({
       const filteredForm = Object.entries(form).reduce((a, [k, v]) => (v === null ? a : { ...a, [k]: v }), {})
       const userData = await putProfile(filteredForm)
       updateUser(userData)
+
+      await router.push({
+        name: 'profile',
+        params: { username: userData.username },
+      })
     }
 
     const onLogout = async () => {
