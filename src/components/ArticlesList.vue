@@ -12,17 +12,17 @@
     Articles are downloading...
   </div>
   <div
-    v-else-if="articles.length == 0"
+    v-else-if="articles.length === 0"
     class="article-preview"
   >
     No articles are here... yet.
   </div>
   <template v-else>
-    <ArticlePreview
+    <ArticlesListArticlePreview
       v-for="(article, index) in articles"
       :key="article.slug"
       :article="article"
-      @update="updateArticle(index, $event)"
+      @update="newArticle => updateArticle(index, newArticle)"
     />
 
     <AppPagination
@@ -45,17 +45,22 @@ import { useArticles } from '../composable/useArticles'
 export default defineComponent({
   name: 'ArticlesList',
   components: {
-    ArticlePreview: ArticlesListArticlePreview,
+    ArticlesListArticlePreview,
     AppPagination,
     ArticlesListNavigation,
   },
 
   async setup () {
     const {
-      fetchArticles, articlesDownloading,
-      articlesCount, articles, updateArticle,
-      page, changePage,
-      tag, username,
+      fetchArticles,
+      articlesDownloading,
+      articlesCount,
+      articles,
+      updateArticle,
+      page,
+      changePage,
+      tag,
+      username,
     } = useArticles()
 
     await fetchArticles()

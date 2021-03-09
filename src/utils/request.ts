@@ -1,5 +1,3 @@
-import merge from 'deepmerge'
-
 import { NetworkError } from '../types/error'
 
 import { Either, fail, success } from './either'
@@ -22,12 +20,12 @@ export default class FetchRequest {
   private readonly options: FetchRequestOptions
 
   constructor (options: Partial<FetchRequestOptions> = {}) {
-    this.options = merge(this.defaultOptions, options)
+    this.options = Object.assign({}, this.defaultOptions, options)
   }
 
   private readonly generateFinalUrl = (url: string, options: Partial<FetchRequestOptions> = {}): string => {
     const prefix = options.prefix ?? this.options.prefix
-    const params = merge(this.options.params, options.params ?? {})
+    const params = Object.assign({}, this.options.params, options.params ?? {})
 
     let finalUrl = `${prefix}${url}`
     if (Object.keys(params).length > 0) finalUrl += `?${params2query(params)}`
@@ -36,7 +34,7 @@ export default class FetchRequest {
   }
 
   private readonly generateFinalHeaders = (options: Partial<FetchRequestOptions> = {}): FetchRequestOptions['headers'] => {
-    return merge(this.options.headers, options.headers ?? {})
+    return Object.assign({}, this.options.headers, options.headers ?? {})
   }
 
   private readonly handleResponse = <T>(response: Response): Promise<Either<NetworkError, T>> => {

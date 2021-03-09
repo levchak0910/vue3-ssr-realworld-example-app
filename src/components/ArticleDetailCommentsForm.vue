@@ -14,6 +14,7 @@
     <div class="card-block">
       <textarea
         v-model="comment"
+        aria-label="Write comment"
         class="form-control"
         placeholder="Write a comment..."
         rows="3"
@@ -25,8 +26,9 @@
         class="comment-author-img"
       >
       <button
+        aria-label="Submit"
         type="submit"
-        :disabled="comment===''"
+        :disabled="comment === ''"
         class="btn btn-sm btn-primary"
       >
         Post Comment

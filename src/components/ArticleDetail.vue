@@ -18,6 +18,8 @@
         v-html="articleHandledBody"
       />
       <!-- eslint-enable vue/no-v-html  -->
+
+      <!-- TODO: abstract tag list component-->
       <ul class="tag-list">
         <li
           v-for="tag in article.tagList"
@@ -41,14 +43,11 @@
 </template>
 
 <script lang="ts">
-import DOMPurify from 'dompurify'
-import md2html from 'marked'
+import marked from 'src/plugins/marked'
+import { getArticle } from 'src/services/article/getArticle'
 import { computed, defineComponent, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-
 import ArticleDetailMeta from './ArticleDetailMeta.vue'
-
-import { getArticle } from '../services/article/getArticle'
 
 export default defineComponent({
   name: 'ArticleDetail',
@@ -60,7 +59,7 @@ export default defineComponent({
     const slug = route.params.slug as string
     const article = reactive<Article>(await getArticle(slug))
 
-    const articleHandledBody = computed(() => md2html(article.body, { sanitizer: DOMPurify.sanitize }))
+    const articleHandledBody = computed(() => marked(article.body))
 
     const updateArticle = (newArticle: Article) => {
       Object.assign(article, newArticle)
