@@ -9,8 +9,7 @@
     "serve-production": "node dist/server/entry-server",
     "check-ts-errors": "yarn tsc --noEmit && yarn vti diagnostics",
     "lint": "eslint \"src/**/*.{js,ts,vue}\"",
-    "test:unit": "jest --coverage",
-    "test": "yarn check-ts-errors && yarn lint && yarn test:unit",
+    "test": "yarn check-ts-errors && yarn lint",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -28,7 +27,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.1",
-    "@types/jest": "^26.0.20",
     "@types/js-cookie": "^2.2.6",
     "@types/koa-send": "^4.1.2",
     "@types/marked": "^2.0.0",
@@ -37,8 +35,6 @@
     "@typescript-eslint/parser": "^4.16.1",
     "@vitejs/plugin-vue": "^1.1.4",
     "@vue/compiler-sfc": "^3.0.7",
-    "@vue/test-utils": "^2.0.0-rc.2",
-    "babel-jest": "^26.6.3",
     "eslint": "^7.21.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-config-standard-with-typescript": "^20.0.0",
@@ -47,46 +43,11 @@
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-vue": "^7.6.0",
     "husky": "^5.1.2",
-    "jest": "^26.6.3",
-    "jsdom": "^16.4.0",
     "lint-staged": "^10.5.4",
     "nodemon": "^2.0.6",
     "rollup-plugin-analyzer": "^4.0.0",
-    "ts-jest": "^26.5.1",
     "typescript": "~4.2.2",
     "vite": "^2.0.5",
-    "vti": "^0.1.1",
-    "vue-jest": "^5.0.0-alpha.8"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {}
-    },
-    "testEnvironment": "jsdom",
-    "transform": {
-      "^.+\\.vue$": "vue-jest",
-      "^.+\\js$": "babel-jest"
-    },
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.{ts,vue}",
-      "!<rootDir>/src/config.ts"
-    ],
-    "moduleFileExtensions": [
-      "vue",
-      "ts",
-      "js",
-      "json",
-      "node"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/*.spec.ts"
-    ],
-    "modulePaths": [
-      "<rootDir>"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setup-test.ts"
-    ]
+    "vti": "^0.1.1"
   }
 }
