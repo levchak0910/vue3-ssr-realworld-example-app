@@ -10,7 +10,8 @@
     "check-ts-errors": "yarn tsc --noEmit && yarn vti diagnostics",
     "lint": "eslint \"src/**/*.{js,ts,vue}\"",
     "test:unit": "jest --coverage",
-    "test": "yarn check-ts-errors && yarn lint && yarn test:unit"
+    "test": "yarn check-ts-errors && yarn lint && yarn test:unit",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@harlem/core": "^1.1.0",
@@ -56,15 +57,6 @@
     "vite": "^2.0.5",
     "vti": "^0.1.1",
     "vue-jest": "^5.0.0-alpha.8"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn check-ts-errors"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{ts,vue}": "eslint --fix"
   },
   "jest": {
     "preset": "ts-jest",
