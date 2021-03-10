@@ -2,7 +2,7 @@ import { NetworkError } from '../types/error'
 
 import { Either, fail, success } from './either'
 import params2query from './params-to-query'
-import fetch from './fetch-adapter'
+import fetch from 'cross-fetch'
 
 export interface FetchRequestOptions {
   prefix: string
