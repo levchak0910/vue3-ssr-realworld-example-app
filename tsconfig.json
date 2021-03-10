@@ -64,6 +64,8 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src"
+    "src",
+    "./server-prod.js",
+    "./server-dev.js"
   ]
 }

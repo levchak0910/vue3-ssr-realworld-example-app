@@ -1,41 +1,24 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-// client related imports
 import { createSSRApp } from 'vue'
-import renderer from '@vue/server-renderer'
+import { renderToString } from '@vue/server-renderer'
+
+import { createRouter } from './router'
+
 import App from './App.vue'
 
 import Harlem from '@harlem/core'
 import { createServerSSRPlugin, getBridgingScriptBlock } from '@harlem/plugin-ssr'
 
-import { generateRouter } from './router'
-
 import registerGlobalComponents from './plugins/global-components'
 import { initStore } from './store/init'
+
 import type { ParameterizedContext } from 'koa'
 
-// server related imports
-const Koa = require('koa')
-const sendFile = require('koa-send')
-const path = require('path')
-const fs = require('fs')
-
-const server = new Koa()
-
-const clientRoot = path.join(__dirname, '../client')
-const indexHtmlPath = path.join(clientRoot, 'index.html')
-const indexHtml = fs.readFileSync(indexHtmlPath, { encoding: 'utf-8' })
-
-server.use(async (ctx: ParameterizedContext) => {
-  // send static file
-  if (ctx.path.startsWith('/_assets')) {
-    await sendFile(ctx, ctx.path, { root: clientRoot })
-    return
-  }
-
-  // go to vue app rendering
+export async function render (
+  ctx: ParameterizedContext,
+  manifest: Record<string, string[]>,
+): Promise<[string, string]> {
   const app = createSSRApp(App)
-  const router = generateRouter('ssr')
+  const router = createRouter('server')
 
   // create and initialize store
   app.use(Harlem, { plugins: [createServerSSRPlugin()] })
@@ -48,14 +31,38 @@ server.use(async (ctx: ParameterizedContext) => {
   await router.push(ctx.path)
   await router.isReady()
 
-  if (router.currentRoute.value.matched.length === 0) {
-    ctx.throw(404, 'Not Found')
-  }
-
-  let renderedHtml = await renderer.renderToString(app)
+  const renderCtx: {modules?: string[]} = {}
+  let renderedHtml = await renderToString(app, renderCtx)
   renderedHtml += getBridgingScriptBlock()
-  const finalHtml = indexHtml.replace('<div id="app">', `<div id="app" data-server-rendered="true">${renderedHtml}`)
-  ctx.body = finalHtml
-})
 
-server.listen(8080, () => console.log('started server on http://localhost:8080'))
+  const preloadLinks = renderPreloadLinks(renderCtx.modules, manifest)
+  return [renderedHtml, preloadLinks]
+}
+
+function renderPreloadLinks (modules: undefined | string[], manifest: Record<string, string[]>): string {
+  let links = ''
+  const seen = new Set()
+  if (modules === undefined) throw new Error()
+  modules.forEach((id) => {
+    const files = manifest[id]
+    if (files) {
+      files.forEach((file) => {
+        if (!seen.has(file)) {
+          seen.add(file)
+          links += renderPreloadLink(file)
+        }
+      })
+    }
+  })
+  return links
+}
+
+function renderPreloadLink (file: string): string {
+  if (file.endsWith('.js')) {
+    return `<link rel="modulepreload" crossorigin href="${file}">`
+  } else if (file.endsWith('.css')) {
+    return `<link rel="stylesheet" href="${file}">`
+  } else {
+    return ''
+  }
+}

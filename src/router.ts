@@ -1,19 +1,11 @@
-import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter as createVueRouter,
+  createMemoryHistory,
+  createWebHistory,
+  Router,
+} from 'vue-router'
 
-export type AppRouteNames = 'global-feed'
-| 'my-feed'
-| 'tag'
-| 'article'
-| 'create-article'
-| 'edit-article'
-| 'login'
-| 'register'
-| 'profile'
-| 'profile-favorites'
-| 'settings'
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/explicit-module-boundary-types
-export const generateRouter = (type: 'client' | 'ssr') => createRouter({
+export const createRouter = (type: 'client' | 'server'): Router => createVueRouter({
   history: type === 'client' ? createWebHistory() : createMemoryHistory(),
 
   routes: [

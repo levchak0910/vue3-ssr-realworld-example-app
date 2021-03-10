@@ -1,6 +1,8 @@
 import { createSSRApp } from 'vue'
+
+import { createRouter } from './router'
+
 import App from './App.vue'
-import { generateRouter } from './router'
 
 import Harlem from '@harlem/core'
 import { createClientSSRPlugin } from '@harlem/plugin-ssr'
@@ -8,7 +10,7 @@ import { createClientSSRPlugin } from '@harlem/plugin-ssr'
 import registerGlobalComponents from './plugins/global-components'
 import setAuthorizationToken from './plugins/set-authorization-token'
 
-const router = generateRouter('client')
+const router = createRouter('client')
 
 const app = createSSRApp(App)
 app.use(router)
@@ -22,6 +24,5 @@ registerGlobalComponents(app)
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 router.isReady().then(() => {
-  // this will hydrate the app
   app.mount('#app', true)
 })
