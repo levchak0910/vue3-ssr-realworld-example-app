@@ -219,22 +219,22 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@harlem/core@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@harlem/core/-/core-1.1.1.tgz#245a08cb2f68c6aa4e6d70bebe118b0545cf7798"
-  integrity sha512-v/a4BOXEf+Iw//6pVfY9nXELIKsaevzXKMfw3wj5KP6wQfNlkWjKarMIKrh4wtJchf7OEf50jfZX74SoERTMRg==
+"@harlem/core@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@harlem/core/-/core-1.2.3.tgz#5eb8941827b9f69ccdc2594de9e505c2f16bd901"
+  integrity sha512-D2jYl6fqT/EOKKQ0EslLb4VGMOO+1FSynVj2c/J6eiqdp+3QmbsC7nYkm8Bba26R33lcBNHzF8bpUmryknhvtQ==
 
-"@harlem/plugin-ssr@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@harlem/plugin-ssr/-/plugin-ssr-1.1.1.tgz#eedb76b146cf90d1b077b6a81df953b6df24b14b"
-  integrity sha512-kEg3LKLjaMRKCJsdYPocyElYc+JCpql9S9ZK3thDoCeui+ZsUhDuTcVVhalYdK5IHNz4dif6pQHB2lYRw2XcVg==
+"@harlem/plugin-ssr@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@harlem/plugin-ssr/-/plugin-ssr-1.2.3.tgz#a7de74ba819d441e0c53191d3375204998ec8e9c"
+  integrity sha512-Tu9wK1M/HPJPIJwwHaOD5tKuu61yc63788+IiUgSA4oI2zfmMQ+sqR7BTMVnAMq2gS9D227J/oh0u/5eIuC4GA==
   dependencies:
-    "@harlem/utilities" "^1.1.1"
+    "@harlem/utilities" "^1.2.3"
 
-"@harlem/utilities@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@harlem/utilities/-/utilities-1.1.1.tgz#bd0726f77b43caaa3f124ee7b56acd33a5d8f235"
-  integrity sha512-COXjjHBslILhTRXvWGBvb9NmkCAnl5MsvZLmti7levNGANejvvwRsAk4rR7B8YnHi8b/wJLMqcta/WqR0IVUKQ==
+"@harlem/utilities@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@harlem/utilities/-/utilities-1.2.3.tgz#b73870731b31e474702793a44052b6d906096593"
+  integrity sha512-vVG66IsqYb8TLtfnZGsY2PIdnWhz8/zE9wVNNiJpwn+vlPXmW/gW2jJ1f/Q/yFGJV+tmzal/jUKUr8WvlNpmoQ==
 
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
