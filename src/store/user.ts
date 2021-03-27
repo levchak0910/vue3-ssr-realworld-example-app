@@ -12,7 +12,11 @@ const STATE: State = {
   user: null,
 }
 
+console.log('OK')
+
 const { getter, mutation } = createStore<State>('user', STATE)
+
+console.log('OK AFTER')
 
 export const user = getter('user', state => state.user)
 
