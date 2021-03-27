@@ -2,6 +2,7 @@ import { request } from '../services'
 import storage from '../utils/storage'
 
 export default function (): void {
-  const token = storage.get<User>('user')?.token
-  if (token !== undefined) request.setAuthorizationHeader(token)
+  const user = storage.get<User>('user')
+  // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+  if (user !== null && user.token !== undefined) request.setAuthorizationHeader(user.token)
 }

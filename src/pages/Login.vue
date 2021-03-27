@@ -82,7 +82,7 @@ export default defineComponent({
     const errors = ref<PostLoginErrors>({})
 
     const login = async () => {
-      if (!formRef.value?.checkValidity()) return
+      if (formRef.value && !formRef.value.checkValidity()) return
 
       const result = await postLogin(form)
       if (result.isOk()) {

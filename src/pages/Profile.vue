@@ -89,13 +89,13 @@ export default defineComponent({
     const { profile, updateProfile } = useProfile({ username })
 
     const { followProcessGoing, toggleFollow } = useFollow({
-      following: computed<boolean>(() => profile.value?.following ?? false),
+      following: computed<boolean>(() => profile.value !== null ? profile.value.following : false),
       username,
       onUpdate: (newProfileData: Profile) => updateProfile(newProfileData),
     })
 
     const showEdit = computed<boolean>(() => checkAuthorization(user) && user.value.username === username.value)
-    const showFollow = computed<boolean>(() => user.value?.username !== username.value)
+    const showFollow = computed<boolean>(() => user.value !== null && user.value.username !== username.value)
 
     return {
       profile,

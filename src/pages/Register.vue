@@ -90,7 +90,7 @@ export default defineComponent({
     const errors = ref<PostRegisterErrors>({})
 
     const register = async () => {
-      if (!formRef.value?.checkValidity()) return
+      if (formRef.value && !formRef.value.checkValidity()) return
 
       const result = await postRegister(form)
       if (result.isOk()) {

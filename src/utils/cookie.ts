@@ -2,7 +2,8 @@ import Cookies from 'js-cookie'
 
 function get<T = unknown> (key: string): T | null {
   try {
-    const value = Cookies.get(key) ?? ''
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    const value = Cookies.get(key) || ''
     return JSON.parse(value)
   } catch (e) {
     return null

@@ -114,10 +114,11 @@ export default defineComponent({
     })
 
     const isButtonDisabled = computed(() => (
-      form.image === user.value?.image &&
-      form.username === user.value?.username &&
-      form.bio === user.value?.bio &&
-      form.email === user.value?.email &&
+      user.value !== null &&
+      form.image === user.value.image &&
+      form.username === user.value.username &&
+      form.bio === user.value.bio &&
+      form.email === user.value.email &&
       !form.password
     ))
 

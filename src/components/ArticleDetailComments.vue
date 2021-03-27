@@ -35,7 +35,7 @@ export default defineComponent({
     const route = useRoute()
     const slug = route.params.slug as string
 
-    const username = computed(() => user.value?.username)
+    const username = computed(() => user.value ? user.value.username : undefined)
 
     const comments = ref<ArticleComment[]>([])
 

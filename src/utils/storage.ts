@@ -1,6 +1,7 @@
 function get<T> (key: string): T | null {
   try {
-    const value = localStorage.getItem(key) ?? ''
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    const value = localStorage.getItem(key) || ''
     return JSON.parse(value)
   } catch (e) {
     return null
