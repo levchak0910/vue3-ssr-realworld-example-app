@@ -1,5 +1,6 @@
 import type { ComputedRef } from 'vue'
-import { createStore } from '@harlem/core'
+
+import { createStore } from './create-store-wrapper'
 
 import { request } from '../services'
 import cookie from '../utils/cookie'
