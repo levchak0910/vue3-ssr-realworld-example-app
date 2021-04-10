@@ -11,7 +11,6 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 import { RouteParams, useLink, useRouter } from 'vue-router'
-import type { AppRouteNames } from '../router'
 
 export default defineComponent({
   name: 'AppLink',

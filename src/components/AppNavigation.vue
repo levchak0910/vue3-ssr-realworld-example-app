@@ -35,8 +35,6 @@
 import { defineComponent, computed } from 'vue'
 import type { RouteParams } from 'vue-router'
 
-import type { AppRouteNames } from '../router'
-
 import { user } from '../store/user'
 
 interface NavLink {
