@@ -1,7 +1,8 @@
 {
-  "name": "vue3-realworld-example-app",
+  "name": "vue3-ssr-realworld-example-app",
   "version": "1.1.0",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "yarn build:client && yarn build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",
