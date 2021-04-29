@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 
-import { createStore } from './create-store-wrapper'
+import { createStore } from '@harlem/core'
 
 import { request } from '../services'
 import cookie from '../utils/cookie'
@@ -13,7 +13,7 @@ const STATE: State = {
   user: null,
 }
 
-const { getter, mutation } = createStore<State>('user', STATE)
+const { getter, mutation } = createStore<State>('user', STATE, { allowOverwrite: true })
 
 export const user = getter('user', state => state.user)
 
