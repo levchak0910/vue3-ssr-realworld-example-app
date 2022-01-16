@@ -12,12 +12,14 @@
     "check-ts-errors": "yarn tsc --noEmit && yarn vti diagnostics",
     "lint": "eslint \"src/**/*.{js,ts,vue}\"",
     "test": "yarn check-ts-errors && yarn lint",
+    "perf": "yarn build && clinic doctor --on-port=\"sleep 5 && autocannon http://localhost:8080 -a 500 -c 50 && sleep 5 && autocannon http://localhost:8080 -a 10 -c 2 && sleep 5\" -- node server-prod.js",
     "prepare": "husky install"
   },
   "dependencies": {
     "@harlem/core": "^1.3.1",
     "@harlem/plugin-ssr": "^1.3.1",
-    "@vue/server-renderer": "^3.0.11",
+    "@vue/server-renderer": "3.2.27",
+    "clinic": "^11.0.0",
     "cross-fetch": "^3.1.4",
     "insane": "^2.6.2",
     "js-cookie": "^2.2.1",
@@ -25,7 +27,7 @@
     "koa-connect": "^2.1.0",
     "koa-send": "^5.0.1",
     "marked": "^2.0.3",
-    "vue": "3.0.11",
+    "vue": "3.2.27",
     "vue-router": "4.0.6"
   },
   "devDependencies": {
@@ -36,7 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@vitejs/plugin-vue": "^1.2.2",
-    "@vue/compiler-sfc": "^3.0.11",
+    "@vue/compiler-sfc": "3.2.27",
     "eslint": "^7.25.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
     "eslint-plugin-import": "^2.22.1",

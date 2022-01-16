@@ -31,6 +31,11 @@ yarn serve
 yarn dev
 ```
 
+### Test performance
+```shell script
+yarn perf
+```
+
 ## Acknowledges
 
 - [@mutoe](https://github.com/mutoe) and [contributors](https://github.com/mutoe/vue3-realworld-example-app#contributors) - for original repo

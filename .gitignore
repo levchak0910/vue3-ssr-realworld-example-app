@@ -10,3 +10,4 @@ coverage
 .vscode
 yarn-error.log
 .husky
+.clinic
