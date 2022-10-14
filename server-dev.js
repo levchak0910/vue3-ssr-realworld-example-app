@@ -11,7 +11,7 @@ const vite = require('vite')
 const root = process.cwd()
 const resolve = (p) => path.resolve(__dirname, p)
 
-;(async () => {
+(async () => {
   const app = new Koa()
 
   const viteServer = await vite.createServer({
